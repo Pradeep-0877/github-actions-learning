@@ -1,33 +1,10 @@
-name: first pipeline
-on: [push,workflow_dispatch]
-  
+name: output information
+on: [workflow_dispatch]
 jobs: 
-  test: 
-    runs-on: ubuntu-latest #By default the runners all node, java, ruby, swift an all ar previously installed
-    steps:
-      - name: checkout our code from git repo
-        uses: actions/checkout@v4
-        #we do have wuth keyword which is assosiated with uses variable
-        #and by default using this actions the code by default checkout the repo used with workflows
-      - name: npm install
-      #we can also use node actions for installing it
-      #actions/setup-node@v3
-        uses: actions/setup-node@v3
-        with: 
-          node-version: 18
-      - run: npm ci #install all dependecies as mentionaed in package.json
-      - name: node application is testing
-        run: npm test
-  Deploy: 
-    needs: test
-    runs-on: ubuntu-latest #every job has it's own runners
+  info: 
+    runs-on: ubuntu ubuntu-latest
     steps: 
-      - name: checkout our code
-        uses: actions/checkout@v4
-      - run: npm ci
-      - name: Build my application
-        run: npm run build
-      - name: Deploying.....
-        run: echo "Deployed successfully..."
+      - name: my github context
+        run: echo "${{ toJSON(github )}}" # For printing our any dynamic variab;s we will be using ${{ github }}
+        # This github key value will provide information regarding workflow run
 
-       
