@@ -4,6 +4,7 @@ on:
     branches: 
        - 'main'
        - 'master'
+  
 jobs: 
   test: 
     runs-on: ubuntu-latest #By default the runners all node, java, ruby, swift an all ar previously installed
@@ -13,12 +14,23 @@ jobs:
         #we do have wuth keyword which is assosiated with uses variable
         #and by default using this actions the code by default checkout the repo used with workflows
       - name: npm install
-        #we can also use node actions for installing it
-        #actions/setup-node@v3
+      #we can also use node actions for installing it
+      #actions/setup-node@v3
         uses: actions/setup-node@v3
         with: 
           node-version: 18
       - run: npm ci #install all dependecies as mentionaed in package.json
       - name: node application is testing
         run: npm test
+  Deploy: 
+    runs-on: ubuntu-latest #every job has it's own runners
+    steps: 
+      - name: checkout our code
+        uses: actions/checkout@v4
+      - run: npm CI
+      - name: Build my application
+        run: npm run Build
+      - name: Deploying.....
+        run: echo "Deployed successfully..."
+
        
