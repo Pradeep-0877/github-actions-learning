@@ -27,7 +27,7 @@ jobs:
     steps: 
       - name: checkout our code
         uses: actions/checkout@v4
-      - run: npm CI
+      - run: npm ci
       - name: Build my application
         run: npm run Build
       - name: Deploying.....
