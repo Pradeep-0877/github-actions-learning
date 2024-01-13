@@ -1,18 +1,25 @@
-name: Events Demo 1
-on: ...
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+name: first pipeline
+on:
+  push: 
+    branches: 
+       - 'main'
+       - 'master'
+  pull_request: main
+jobs: 
+  test: 
+    runs-on: ubuntu-latest #By default the runners all node, java, ruby, swift an all ar previously installed
     steps:
-      - name: Output event data
-        run: echo "${{ toJSON(github.event) }}"
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm ci
-      - name: Test code
-        run: npm run test
-      - name: Build code
-        run: npm run build
-      - name: Deploy project
-        run: echo "Deploying..."
+      - name: checkout our code from git repo
+        uses: actions/checkout@v4
+        #we do have wuth keyword which is assosiated with uses variable
+        #and by default using this actions the code by default checkout the repo used with workflows
+      - name: npm install
+        #we can also use node actions for installing it
+        #actions/setup-node@v3
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm ci #install all dependecies as mentionaed in package.json
+      - name: node application is testing
+        run: npm test
+       
