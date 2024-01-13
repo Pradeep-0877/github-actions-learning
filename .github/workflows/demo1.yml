@@ -23,6 +23,7 @@ jobs:
       - name: node application is testing
         run: npm test
   Deploy: 
+    needs: test
     runs-on: ubuntu-latest #every job has it's own runners
     steps: 
       - name: checkout our code
