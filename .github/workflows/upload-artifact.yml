@@ -37,5 +37,5 @@ jobs:
                 name: ${{github.event.inputs.Artifact_name}}
             - run: ls
             - name: desploying outputs of previous job
-              run: echo "${{needs.outputs.myfilename}}"
+              run: echo "${{needs.Build.outputs.myfilename}}"
 
