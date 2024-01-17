@@ -1,0 +1,14 @@
+name: environment variables
+on: workflow_dispatch
+env:  # we can define environment variables in workflow level or job level as well
+    DEPLOY_TO: prod
+jobs: 
+    job1: 
+        env:  # only scoped to job level
+            NAME: pradeep
+        runs-on: ubuntu-latest
+        steps: 
+            - name: using environment variables
+              run:  |
+                 echo "${{env.DEPLOY_TO}}" #or $DEPLOY_TO works too
+                 echo "My name is $NAME"
