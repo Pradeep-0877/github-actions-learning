@@ -1,0 +1,27 @@
+name: upload artifacts
+on: 
+    workflow_dispatch: 
+        inputs: 
+            Artifact_name: 
+                description: Provide name of artifact
+                default: node v0.0
+jobs: 
+    Build: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Getting my source code...
+              uses: actions/checkout@v3
+            - name: Installing dependencies
+              run: npm ci
+            - name: Building my node app
+              run: npm run build
+            - name: archiving my artifact
+              uses: actions/upload-artifact@v3
+              with: 
+                name: github.event.inputs.Artifact_name
+                path: dist
+    Deploy: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Deploying node app.....
+              run: echo 'Deployment successful'
