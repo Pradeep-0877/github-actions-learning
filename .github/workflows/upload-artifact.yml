@@ -8,6 +8,8 @@ on:
 jobs: 
     Build: 
         runs-on: ubuntu-latest
+        outputs: 
+            myfilename: ${{ steps.jsname.outputs.scriptfile}}
         steps: 
             - name: Getting my source code...
               uses: actions/checkout@v3
@@ -15,10 +17,13 @@ jobs:
               run: npm ci
             - name: Building my node app
               run: npm run build
+            - name: publish JS filename
+              id: jsname
+              run: find dist/assets/*.js -type f -execdir echo 'sciptfile={}' >> $GITHUB_OUTPUT ';'
             - name: archiving my artifact
               uses: actions/upload-artifact@v3
               with: 
-                name: "${{github.event.inputs.Artifact_name}}"
+                name: ${{github.event.inputs.Artifact_name}}
                 path: dist
     Deploy: 
         needs: Build
@@ -29,5 +34,8 @@ jobs:
             - name: get Build artifacts
               uses: actions/download-artifact@v3
               with: 
-                name: "${{ github.event.inputs.Artifact_name }}"
+                name: ${{github.event.inputs.Artifact_name}}
+            - run: ls
+            - name: desploying outputs of previous job
+              run: echo "${{needs.outputs.myfilename}}"
 
