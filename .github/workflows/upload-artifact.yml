@@ -18,7 +18,7 @@ jobs:
             - name: archiving my artifact
               uses: actions/upload-artifact@v3
               with: 
-                name: github.event.inputs.Artifact_name
+                name: "${{ github.event.inputs.Artifact_name }}"
                 path: dist
     Deploy: 
         runs-on: ubuntu-latest
