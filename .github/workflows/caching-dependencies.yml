@@ -1,0 +1,30 @@
+name: caching
+on: workflow_dispatch
+jobs: 
+    build: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: checkout our code
+              uses: actions/checkout@v3
+            - name: chaching dependecies
+              uses: actions/cache@v3  #using this we cache our dependencies
+              # the cache steps also executes after job compeltion
+              with: 
+                 path: ~/.npm
+                 key: node-modules-${{ hashfiles('**/package-lock.json') }}
+            - name: installing dependencies
+              run: npm ci
+            - name: Building our node app
+              run: npm run build
+    deploy: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v3
+            - name: chaching dependecies
+              uses: actions/cache@v3  #using this we cache our dependencies
+              # the cache steps also executes after job compeltion
+              with: 
+                 path: ~/.npm
+                 key: node-modules-${{ hashfiles('**/package-lock.json') }}
+            - run: npm ci
+            - run: npm run build
