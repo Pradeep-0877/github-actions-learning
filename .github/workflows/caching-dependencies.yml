@@ -12,6 +12,7 @@ jobs:
               with: 
                  path: ~/.npm
                 # key: node-modules-${{ hashfiles('**/package-lock.json') }}
+                 key: demo
             - name: installing dependencies
               run: npm ci
             - name: Building our node app
@@ -26,6 +27,7 @@ jobs:
               # the cache steps also executes after job compeltion
               with: 
                  path: ~/.npm
+                 key: demo
                 # key: node-modules-${{ hashfiles('**/package-lock.json') }}
             - run: npm ci
             - run: npm run build
