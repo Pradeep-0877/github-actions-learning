@@ -23,8 +23,9 @@ jobs:
             - name: testing my app
               id: test
               run: npm run test
-              if: steps.test.outcome == 'failure'
+              
             - name: archiving my artifact
+              if: steps.test.outcome == 'failure'
               uses: actions/upload-artifact@v3
               with: 
                 name: ${{github.event.inputs.Artifact_name}}
