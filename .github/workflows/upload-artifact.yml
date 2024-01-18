@@ -21,7 +21,9 @@ jobs:
               id: jsname
               run: find dist/assets/*.js -type f -execdir echo 'sciptfile={}' >> $GITHUB_OUTPUT ';'
             - name: testing my app
+              id: test
               run: npm run test
+              if: steps.test.outcome == 'failure'
             - name: archiving my artifact
               uses: actions/upload-artifact@v3
               with: 
