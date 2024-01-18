@@ -20,6 +20,8 @@ jobs:
             - name: publish JS filename
               id: jsname
               run: find dist/assets/*.js -type f -execdir echo 'sciptfile={}' >> $GITHUB_OUTPUT ';'
+            - name: testing my app
+              run: npm run test
             - name: archiving my artifact
               uses: actions/upload-artifact@v3
               with: 
