@@ -1,0 +1,33 @@
+name: if conditions
+on: workflow_dispatch
+jobs: 
+    test: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v3
+            - name: caching dependencies
+              id: deps
+              uses: actions/cache@v3
+              with: 
+                path: node_modules
+                key: deps-node-modules-${{hashFiles('**/package.json')}}
+            - name: installing dependencies
+              if: steps.deps.outputs.cache-hit !='true'
+              run: npm ci
+            - name: linting our node app
+              run: npm run lint
+
+    Build: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v3
+            - name: caching dependencies
+              uses: actions/cache@v3
+              with: 
+                path: node_modules
+                key: deps-node-modules-${{hashFiles('**/package.json')}}
+            - name: Building app
+              run: npm run build
+
+            
+               
