@@ -6,7 +6,7 @@ jobs:
         strategy: 
             matrix: 
                 node-version: [12,14,16]
-                operating-system: [ubuntu-latest.windows-latest]
+                operating-system: [ubuntu-latest,windows-latest]
         runs-on: ${{ matrix.operating-system }} # there is matrix context using which we can access variable sinside it
         # The matrix strategy runs the job for every valuee of it's key
         steps: 
