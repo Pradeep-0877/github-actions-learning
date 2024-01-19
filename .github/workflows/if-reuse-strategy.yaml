@@ -1,4 +1,4 @@
-name: if conditions
+name: if and reuse
 on: workflow_dispatch
 jobs: 
     test: 
@@ -16,6 +16,9 @@ jobs:
               run: npm ci
             - name: linting our node app
               run: npm run lint
+    deploy: 
+      needs: test
+      uses: ./.github/workflows/reusable_workflows.yaml
 
     Build: 
         runs-on: ubuntu-latest

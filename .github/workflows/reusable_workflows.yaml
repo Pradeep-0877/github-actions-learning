@@ -1,0 +1,8 @@
+name: reusable workflows
+on: workflow_call #this is mainly used for this workflow to be called for othe workflows
+jobs: 
+    deploy: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: deployingg...
+              run: echo "Deploying & uploading..."
