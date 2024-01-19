@@ -1,0 +1,18 @@
+#The main idea behind this matrix strategy is to run the same job with different configurations
+name: matrix strategy
+on: workflow_dispatch
+jobs: 
+    build: 
+        strategy: 
+            matrix: 
+                node-version: [12,14,16]
+                operating-system: [ubuntu-latest.windows-latest]
+        runs-on: ${{ matrix.operating-system }} # there is matrix context using which we can access variable sinside it
+        # The matrix strategy runs the job for every valuee of it's key
+        steps: 
+            - name: get code
+              uses: actions/checkout@v3
+            - name: installing dependencies
+              run: npm ci
+            - name: Build project
+              run: npm run build
